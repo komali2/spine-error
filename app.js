@@ -9,14 +9,15 @@ window.addEventListener('load', function () {
     gerald.scale.set(0.3, 0.3);
     gerald.position.set(app.screen.width / 2, app.screen.height / 1.2);
     gerald.skeleton.setToSetupPose();
-    gerald.state.setAnimation(0, 'DANCING-ACTIVE', false, 1);
+    gerald.state.setAnimation(0, 'DANCING-ACTIVE', true, 1);
     gerald.skeleton.setSkinByName('full-gerald');
     app.stage.addChild(gerald);
     generateSkinButtons(gerald);
+    this.gerald = gerald;
   }
   function changeAvatarSkin(skin) {
-    gerald.skeleton.setSkin(null);
-    gerald.skeleton.setSkinByName(skin);
+    this.gerald.skeleton.setSkin(null);
+    this.gerald.skeleton.setSkinByName(skin);
   }
   function generateSkinButtons(gerald){
     const skins = [];
@@ -35,7 +36,10 @@ window.addEventListener('load', function () {
       const button = document.createElement('button');
       li.appendChild(button);
       button.innerHTML = skin;
-      list.appendChild(li)
+      list.appendChild(li);
+      button.onclick = function() {
+        changeAvatarSkin(skin);
+      }
     });
   }
 });
